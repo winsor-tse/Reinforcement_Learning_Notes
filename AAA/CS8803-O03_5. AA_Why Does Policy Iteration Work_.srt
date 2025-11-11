@@ -1,0 +1,82 @@
+1
+00:00:00,370 --> 00:00:02,090
+In addition to this
+notion of domination,
+
+2
+00:00:02,090 --> 00:00:04,510
+another thing that's
+going to be helpful is,
+
+3
+00:00:04,510 --> 00:00:08,060
+if I tell you a tale of two
+operators for two policies.
+
+4
+00:00:08,060 --> 00:00:12,202
+So imagine we've got policy Pi(1) and
+policy Pi(2).
+
+5
+00:00:12,202 --> 00:00:16,490
+We're going to define the one step
+Bellman operator on those two policies.
+
+6
+00:00:16,490 --> 00:00:20,620
+So the first operator B1,
+when we apply it to a value function V
+
+7
+00:00:20,620 --> 00:00:26,020
+is just going to return for each state
+the immediate reward from that state.
+
+8
+00:00:26,020 --> 00:00:30,720
+If we follow policy Pi1 plus
+the discounted expected value for
+
+9
+00:00:30,720 --> 00:00:35,980
+following policy Pi1 with
+one step look up on V.
+
+10
+00:00:35,980 --> 00:00:38,570
+So we're converting V, we're basically
+putting V through a one step value
+
+11
+00:00:38,570 --> 00:00:42,700
+iteration with a fixed policy Pi1,
+and B2 is the same idea,
+
+12
+00:00:42,700 --> 00:00:45,056
+same operator,
+except with respect to policy two.
+
+13
+00:00:45,056 --> 00:00:46,588
+Pi2.
+
+14
+00:00:46,588 --> 00:00:48,120
+Pi2.
+
+15
+00:00:48,120 --> 00:00:52,000
+So, what we're going to be able to
+show is various kinds of interesting
+
+16
+00:00:52,000 --> 00:00:54,820
+domination relationships between
+
+17
+00:00:54,820 --> 00:00:54,820
+the value functions that we get
+out with each of these operators.
+

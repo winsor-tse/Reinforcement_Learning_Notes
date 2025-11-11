@@ -1,0 +1,528 @@
+1
+00:00:00,120 --> 00:00:03,670
+The first statement we need to
+make this proof go is that B2,
+
+2
+00:00:03,670 --> 00:00:07,260
+the operator B2,
+applied to Q1, dominates Q1.
+
+3
+00:00:07,260 --> 00:00:10,550
+&gt;&gt; Right, which you just
+proved a slide ago, right?
+
+4
+00:00:10,550 --> 00:00:12,050
+&gt;&gt; Right.
+And what did we call that?
+
+5
+00:00:12,050 --> 00:00:13,420
+&gt;&gt; Value improvement.
+
+6
+00:00:13,420 --> 00:00:13,920
+&gt;&gt; Good.
+
+7
+00:00:15,100 --> 00:00:19,280
+Yeah, the fact that we're using the
+greedy policy with respect to Q1, one
+
+8
+00:00:19,280 --> 00:00:23,690
+step of update with respect to that gets
+us a possibly better value function.
+
+9
+00:00:23,690 --> 00:00:25,610
+&gt;&gt; Right.
+&gt;&gt; Great, now the next statement says
+
+10
+00:00:25,610 --> 00:00:31,420
+that if we iterate this operator, so
+B2 iterated K times, applied to Q1,
+
+11
+00:00:31,420 --> 00:00:39,840
+versus B2 iterated K+1 times applied to
+Q1, the K plus 1 one dominates the K1.
+
+12
+00:00:39,840 --> 00:00:42,830
+So this is kind of step
+of a proof by induction.
+
+13
+00:00:42,830 --> 00:00:44,530
+But what's the main justification here.
+
+14
+00:00:44,530 --> 00:00:48,190
+What lets you make the statement that
+one additional application of B2
+
+15
+00:00:48,190 --> 00:00:50,460
+is going to dominate
+the previous adaptation.
+
+16
+00:00:50,460 --> 00:00:53,730
+&gt;&gt; So I'm going to say that it's
+the other thing that you said
+
+17
+00:00:53,730 --> 00:00:55,530
+because I only remember
+two things that you said.
+
+18
+00:00:55,530 --> 00:00:57,810
+And so that would be monotonicity.
+
+19
+00:00:57,810 --> 00:00:59,330
+It's the monotonicity of B2.
+
+20
+00:00:59,330 --> 00:01:00,840
+&gt;&gt; Right.
+But if you've used up all these,
+
+21
+00:01:00,840 --> 00:01:02,140
+the next two boxes are going to be hard.
+
+22
+00:01:02,140 --> 00:01:05,319
+But just to go through why this is
+the case, what we've done is we've taken
+
+23
+00:01:05,319 --> 00:01:08,390
+this first equation and
+applied B2 to both sides.
+
+24
+00:01:08,390 --> 00:01:10,660
+Just over and over and
+over and over again.
+
+25
+00:01:10,660 --> 00:01:14,850
+But since one dominated the other, after
+we applied B2 to it, it still dominates.
+
+26
+00:01:14,850 --> 00:01:17,250
+Right that was like two slides ago that
+was the whole point of monotinicity.
+
+27
+00:01:17,250 --> 00:01:18,270
+And they look very similar.
+
+28
+00:01:18,270 --> 00:01:20,980
+Value improvement and monotinicity
+look very similar to one another.
+
+29
+00:01:20,980 --> 00:01:23,640
+&gt;&gt; Exactly.
+And they all ground back in domination.
+
+30
+00:01:23,640 --> 00:01:25,480
+&gt;&gt; Right,
+everything comes down to domination.
+
+31
+00:01:25,480 --> 00:01:27,090
+&gt;&gt; Boom.
+&gt;&gt; Nice very nice.
+
+32
+00:01:27,090 --> 00:01:27,670
+Okay cool.
+
+33
+00:01:27,670 --> 00:01:30,865
+All right so we got value improvement
+although I guess that's more accurately
+
+34
+00:01:30,865 --> 00:01:33,607
+value non-deprovement or something.
+
+35
+00:01:33,607 --> 00:01:36,990
+[LAUGH] Just to be you know
+mathematically technical here and
+
+36
+00:01:36,990 --> 00:01:38,230
+then we've got monotonicity.
+
+37
+00:01:38,230 --> 00:01:40,760
+&gt;&gt; I like how you became more
+mathematically correct and
+
+38
+00:01:40,760 --> 00:01:42,160
+less grammatically create.
+
+39
+00:01:42,160 --> 00:01:44,560
+&gt;&gt; Well those things are trade offs,
+they're fundamental trade offs.
+
+40
+00:01:44,560 --> 00:01:45,730
+Okay so we've got that.
+
+41
+00:01:45,730 --> 00:01:47,110
+So we got value improvement,
+
+42
+00:01:47,110 --> 00:01:50,160
+we got monotonicity of our
+value improvement so to speak.
+
+43
+00:01:50,160 --> 00:01:52,180
+And so
+that's actually what the third thing is.
+
+44
+00:01:52,180 --> 00:01:53,360
+It's basically.
+
+45
+00:01:53,360 --> 00:01:55,420
+The monotonicity of
+our value improvement.
+
+46
+00:01:55,420 --> 00:01:58,190
+You just kind of kept saying if I
+keep doing the second thing over and
+
+47
+00:01:58,190 --> 00:02:00,120
+over and over again,
+it keeps getting better and better.
+
+48
+00:02:00,120 --> 00:02:03,990
+Therefore the very last one that I do,
+has to be better than the very first, or
+
+49
+00:02:03,990 --> 00:02:07,270
+at least no worse than,
+the very first one that I did.
+
+50
+00:02:07,270 --> 00:02:12,180
+So I guess that's, there's a math
+term for this transitivity.
+
+51
+00:02:12,180 --> 00:02:14,220
+A greater than B greater C,
+A greater than C.
+
+52
+00:02:14,220 --> 00:02:14,860
+&gt;&gt; Oh, that's right.
+
+53
+00:02:14,860 --> 00:02:19,760
+&gt;&gt; So transitive property of
+monotonicity non-deprovement.
+
+54
+00:02:19,760 --> 00:02:20,720
+&gt;&gt; I wouldn't say that.
+
+55
+00:02:20,720 --> 00:02:24,100
+It's what we get each time
+we iterate this B2 operator,
+
+56
+00:02:24,100 --> 00:02:28,350
+we are getting something that dominates
+the previous value that we had,
+
+57
+00:02:28,350 --> 00:02:30,640
+which dominates the previous one,
+which dominates the previous one,
+
+58
+00:02:30,640 --> 00:02:33,190
+which eventually grounds out
+in this first statement Q1, so
+
+59
+00:02:33,190 --> 00:02:36,150
+if you just chain all
+those together we get- For
+
+60
+00:02:36,150 --> 00:02:39,390
+each of the possible ks the number of
+iterations that we could apply the B2
+
+61
+00:02:39,390 --> 00:02:43,700
+operator, we're just getting more and
+more monotonistically improved.
+
+62
+00:02:43,700 --> 00:02:44,770
+&gt;&gt; Right.
+So that's,
+
+63
+00:02:44,770 --> 00:02:47,930
+but just remind everyone that's
+just if a is greater than b and
+
+64
+00:02:47,930 --> 00:02:50,300
+b is great than c,
+we know that a is greater than c.
+
+65
+00:02:50,300 --> 00:02:51,520
+Right?
+Transitivity.
+
+66
+00:02:51,520 --> 00:02:53,490
+&gt;&gt; Yeah, that's just using transitivity,
+but we're it over and
+
+67
+00:02:53,490 --> 00:02:54,520
+over and over and over and over.
+
+68
+00:02:54,520 --> 00:02:55,150
+&gt;&gt; Yeah, but it doesn't matter.
+
+69
+00:02:55,150 --> 00:02:57,480
+A greater than B greater than C greater
+than D greater than E greater than
+
+70
+00:02:57,480 --> 00:02:58,360
+F greater than G.
+
+71
+00:02:58,360 --> 00:02:58,990
+&gt;&gt; Got it.
+&gt;&gt; Okay.
+
+72
+00:02:58,990 --> 00:03:00,940
+&gt;&gt; And
+then the last statement says, okay,
+
+73
+00:03:00,940 --> 00:03:04,430
+well now that that's true we
+know that Q2 dominates Q1.
+
+74
+00:03:04,430 --> 00:03:07,820
+&gt;&gt; Right, and that's because you
+said way up there at the top
+
+75
+00:03:08,920 --> 00:03:12,030
+that Q2 was the fixed point
+of the B2 operator and
+
+76
+00:03:12,030 --> 00:03:16,050
+the limit of K approaching
+infinity Vk of Q1 is in fact V.
+
+77
+00:03:17,270 --> 00:03:18,130
+Fixed point.
+
+78
+00:03:18,130 --> 00:03:18,660
+&gt;&gt; Good.
+
+79
+00:03:18,660 --> 00:03:21,790
+So it's the definition of
+Q2 as the fixed point,
+
+80
+00:03:21,790 --> 00:03:25,880
+and this sort of notion that we can
+just keep repeating this operator and
+
+81
+00:03:25,880 --> 00:03:27,460
+we get to the fixed point eventually.
+
+82
+00:03:27,460 --> 00:03:30,910
+Does it matter that there's
+Q1 plugged in here?
+
+83
+00:03:30,910 --> 00:03:32,690
+&gt;&gt; No.
+It does not.
+
+84
+00:03:32,690 --> 00:03:34,130
+Because you defined it that way.
+
+85
+00:03:34,130 --> 00:03:35,330
+&gt;&gt; Not that we defined it.
+
+86
+00:03:35,330 --> 00:03:37,820
+Well, up to this point,
+we came through Q1.
+
+87
+00:03:37,820 --> 00:03:40,730
+But ultimately,
+the fact that we get to Q2,
+
+88
+00:03:40,730 --> 00:03:43,860
+doesn't matter that we started at Q1
+because there's a unique fixed point.
+
+89
+00:03:43,860 --> 00:03:47,360
+So no matter what value function we
+start at, if we keep applying these
+
+90
+00:03:47,360 --> 00:03:50,360
+operators over and over and
+over again we're going to get to Q2.
+
+91
+00:03:50,360 --> 00:03:50,930
+&gt;&gt; No matter what.
+
+92
+00:03:50,930 --> 00:03:52,200
+&gt;&gt; And so we did.
+
+93
+00:03:52,200 --> 00:03:54,660
+&gt;&gt; Yeah, but we want to be
+able to relate it to Q1 and
+
+94
+00:03:54,660 --> 00:03:58,600
+doing it this way allows us to
+do that in four easy steps.
+
+95
+00:03:58,600 --> 00:04:02,560
+&gt;&gt; Yeah, four slightly easy steps,
+one slide per step.
+
+96
+00:04:02,560 --> 00:04:03,830
+But yeah, that's exactly right.
+
+97
+00:04:03,830 --> 00:04:07,570
+So we related Q2 and Q1,
+which is to say we've related two
+
+98
+00:04:07,570 --> 00:04:10,100
+adjacent steps of policy
+iteration to one another.
+
+99
+00:04:10,100 --> 00:04:13,100
+Each time we do a step of policy
+iteration we get no worse.
+
+100
+00:04:13,100 --> 00:04:16,560
+This doesn't tell us that we can't
+reach some kind of local optimum.
+
+101
+00:04:16,560 --> 00:04:17,110
+&gt;&gt; Mmhm.
+
+102
+00:04:17,110 --> 00:04:21,560
+&gt;&gt; But it is telling us that we're
+getting the worse as we apply this
+
+103
+00:04:21,560 --> 00:04:22,560
+series of operators.
+
+104
+00:04:22,560 --> 00:04:23,090
+&gt;&gt; That's nice.
+
+105
+00:04:23,090 --> 00:04:23,870
+I like that.
+
+106
+00:04:23,870 --> 00:04:27,400
+So this is a pretty straightforward
+derivation of fixed proof through
+
+107
+00:04:27,400 --> 00:04:31,440
+transitivity of value
+non-deprovement monotonicity.
+
+108
+00:04:31,440 --> 00:04:32,550
+&gt;&gt; Yeah, obviously.
+
+109
+00:04:32,550 --> 00:04:33,230
+&gt;&gt; I like proofs.
+
+110
+00:04:33,230 --> 00:04:34,025
+I like obvious proofs.
+
+111
+00:04:34,025 --> 00:04:36,310
+[LAUGH]
+&gt;&gt; I like the word non-deprovement.
+
+112
+00:04:36,310 --> 00:04:36,880
+&gt;&gt; We'll have to use that.
+
+113
+00:04:36,880 --> 00:04:38,070
+That could be the name of our band.
