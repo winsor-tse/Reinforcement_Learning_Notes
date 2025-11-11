@@ -81,7 +81,9 @@
 
 ## 🎯 Nash Equilibrium
 
-A strategy profile $$ ( s^* = (s_1^*, s_2^*, \dots, s_n^*) ) $$ is a **Nash Equilibrium** if:
+A strategy profile 
+$$ s^* = (s_1^*, s_2^*, \dots, s_n^*) $$ 
+is a **Nash Equilibrium** if:
 
 $$
 s_i^* = \arg\max_{s_i} \text{Utility}_i(s_1^*, \dots, s_i, \dots, s_n^*)
