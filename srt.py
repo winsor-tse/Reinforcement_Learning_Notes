@@ -25,7 +25,7 @@ def convert_all_srts_in_dir(directory):
             print(f"Converted: {filename} → {txt_filename}")
 
 # Example usage
-convert_all_srts_in_dir("Generalization")
+convert_all_srts_in_dir("Options")
 
 import os
 
@@ -42,4 +42,4 @@ def combine_txt_files(directory, output_file="combined.txt"):
     print(f"All files combined into {output_file}")
 
 # Example usage
-combine_txt_files("Generalization")
+combine_txt_files("Options")
