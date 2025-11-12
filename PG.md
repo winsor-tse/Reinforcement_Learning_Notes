@@ -282,8 +282,12 @@ The estimator is **unbiased**, but can have **very high variance**, especially f
 
 ## ⚙️ Step 5: Reduce Variance with “Reward-to-Go”
 
-Actions at time \( t \) only affect **future rewards**, not past ones.  
-Thus, we replace \( R(\tau) \) with the **reward-to-go**:
+Actions at time 
+$$t$$
+only affect **future rewards**, not past ones.  
+Thus, we replace
+$$R(\tau)$$
+with the **reward-to-go**:
 
 $$R_t = \sum_{t'=t}^{T-1} r(s_{t'}, a_{t'})$$
 
@@ -294,7 +298,9 @@ $$\nabla_\theta J = \mathbb{E}_{\tau} \left[ \sum_t \nabla_\theta \log \pi_\thet
 
 ## ⚙️ Step 6: Baseline Subtraction (Variance Reduction)
 
-We can subtract a **baseline** \( b(s_t) \) without biasing the gradient, since:
+We can subtract a **baseline** 
+$$b(s_t)$$
+without biasing the gradient, since:
 
 
 $$\mathbb{E}[\nabla_\theta \log \pi_\theta(a_t|s_t) b(s_t)] = 0$$
@@ -349,7 +355,7 @@ This leads to **Actor–Critic algorithms**, which reduce variance and stabilize
 - **Natural gradient** rescales updates by the **Fisher Information Matrix (FIM):**
 
 
-$$G(\theta) = \mathbb{E}_{s,a \sim \pi_\theta} [ \nabla_\theta \log \pi_\theta(a|s)
+$$ G(\theta) = \mathbb{E}_{s,a \sim \pi_\theta} [ \nabla_\theta \log \pi_\theta(a|s)
 \nabla_\theta \log \pi_\theta(a|s)^T ]$$
 
 
@@ -360,7 +366,231 @@ $$\Delta \theta = \eta G^{-1}(\theta) \nabla_\theta J$$
 
 This ensures updates correspond to small **changes in policy**, not parameters.
 
+
+# 🚀 From Policy Gradient Theorem to Natural Policy Gradient
+
 ---
+
+## 🧩 The Policy Gradient Theorem
+
+The **Policy Gradient Theorem** provides a foundational way to express how to change a policy’s parameters to increase expected returns.
+
+### 🎯 Theorem Statement:
+
+
+$$\nabla_\theta J(\theta) = \mathbb{E}_{s \sim d^\pi, a \sim \pi_\theta}
+\left[ \nabla_\theta \log \pi_\theta(a|s) Q^\pi(s,a) \right]$$
+
+
+Where:
+- $$d^\pi(s)$$
+-  discounted state visitation distribution  
+- $$Q^\pi(s,a)$$
+-  expected return for taking a in s 
+- $$\pi_\theta(a|s)$$
+-  parameterized stochastic policy  
+
+✅ This removes any dependence on environment transitions \( $$p(s'|s,a)$$ \), making it a **model-free** result.
+
+---
+
+## 💡 From Q to Advantage
+
+We can reduce variance by subtracting a **baseline** that doesn’t depend on the action:
+$$A^\pi(s,a) = Q^\pi(s,a) - V^\pi(s)$$
+
+
+Then the gradient becomes:
+$$\nabla_\theta J(\theta) = \mathbb{E}_{s,a}
+\left[ \nabla_\theta \log \pi_\theta(a|s) A^\pi(s,a) \right]$$
+
+
+✅ This is the practical form used in **Actor–Critic** and **Advantage-based** algorithms.
+
+---
+
+## 🧠 Actor–Critic Framework
+
+Because
+$$ Q^\pi(s,a)$$ 
+or 
+$$ A^\pi(s,a)$$
+are typically unknown, we learn them with a separate **critic network**:
+
+- **Actor:** updates the policy parameters theta
+- **Critic:** estimates 
+- $$V^\pi(s)$$
+- $$Q^\pi(s,a)$$
+
+The critic’s value predictions reduce the variance of policy gradient estimates while maintaining unbiased updates.
+
+---
+
+## 🔁 Example: Discrete Softmax Policy
+
+For a differentiable stochastic policy (e.g., softmax/Boltzmann):
+$$\pi_\theta(a|s) = \frac{\exp(h_\theta(s,a))}{\sum_{a'} \exp(h_\theta(s,a'))}$$
+
+Then:
+$$\nabla_\theta \log \pi_\theta(a|s)
+= \nabla_\theta h_\theta(s,a)
+- \sum_{a'} \pi_\theta(a'|s) \nabla_\theta h_\theta(s,a')$$
+
+This tells us how a small change in parameters \( \theta \) changes the probability of each action.
+
+---
+
+## ⚙️ Policy Improvement Example Using Boltzmann Policy
+
+Let’s illustrate how **policy gradient algorithms improve policies** in practice through a concrete **actor–critic example**.
+
+---
+
+### 🔹 Setup
+
+We have one state \( s \) and two possible actions \( a_0 \) (bad) and \( a_1 \) (good).  
+There is a **feature vector** \( f(s,a) \) and a **parameter** \( q \) controlling the policy.
+
+We use a **Boltzmann (softmax) policy**:
+$$p_q(a|s) = \frac{\exp[q^\top f(s,a)]}{\sum_{a'} \exp[q^\top f(s,a')]}$$
+
+Suppose:
+$$f(s,a_0) = 3, \quad f(s,a_1) = 1, \quad q = 1$$
+
+Then the action probabilities are:
+$$p_q(a_0|s) = \frac{e^{3}}{e^3 + e^1}
+= \frac{e^2}{e^2 + 1} \approx 0.88$$
+
+$$p_q(a_1|s) = \frac{e^{1}}{e^3 + e^1}
+= \frac{1}{e^2 + 1} \approx 0.12$$
+
+---
+
+### 🔹 Critic Estimates (Value Function)
+
+Let the critic provide the following value estimates:
+$$Q^\pi(s,a_0) = 1, \quad Q^\pi(s,a_1) = 100$$
+
+So the “good” action has much higher expected reward.
+
+---
+
+### 🔹 Gradient of the Log Probability
+
+The policy gradient requires:
+$$\nabla_q \log p_q(a|s)
+= f(s,a) - \mathbb{E}_{a' \sim p_q}[f(s,a')]$$
+
+The expected feature value:
+$$\mathbb{E}_{a' \sim p_q}[f(s,a')]
+= 0.88 \times 3 + 0.12 \times 1 = 2.76$$
+
+---
+
+### 🔹 Computing the Policy Gradient
+
+The gradient estimate is:
+$$\nabla_q J = \mathbb{E}_{a \sim p_q(a|s)}
+[\nabla_q \log p_q(a|s) Q^\pi(s,a)]$$
+
+Expanding:
+$$\nabla_q J \approx
+0.88 \times (3 - 2.76) \times 1
++ 0.12 \times (1 - 2.76) \times 100$$
+
+$$\nabla_q J \approx 0.21 - 21.00 = -20.79$$
+
+Thus:
+$$\nabla_q J \approx -20.8$$
+
+---
+
+### 🔹 Interpretation
+
+Since the gradient is **negative**, the update:
+$$q \leftarrow q + \alpha \nabla_q J$$
+
+will **decrease** \( q \).  
+Lowering \( q \) reduces the relative probability of the “bad” high-feature action \( a_0 \) and increases probability of \( a_1 \), the high-reward action.
+
+✅ The policy has therefore **improved** — it now favors actions that yield higher returns.
+
+---
+
+## 🧩 Summary of Boltzmann Policy Gradient Behavior
+
+| Action | Feature f(s,a)  | Q-value Q(s,a) | Probability | Effect of Update |
+|--------|----------------------|----------------------|--------------|------------------|
+|  a_0 | 3 | 1 | 0.88 | Probability decreases |
+| a_1 | 1 | 100 | 0.12 | Probability increases |
+
+This simple example shows **how gradient ascent on expected return directly reshapes the policy** — increasing probabilities of high-reward actions and decreasing poor ones.
+
+---
+
+## 📉 Highly Correlated Features and Gradient Instability
+
+If the features f(s,a) are highly correlated:
+- The Fisher Information Matrix becomes ill-conditioned.
+- Gradients oscillate between directions.
+- Learning becomes unstable.
+
+Hence, we need a way to **normalize the geometry of updates**.
+
+---
+
+## 🧠 Natural Policy Gradient (NPG)
+
+The **Natural Policy Gradient** corrects this by scaling the gradient by the **inverse of the Fisher Information Matrix (FIM):**
+
+$$\tilde{\nabla}_\theta J = F^{-1}(\theta) \nabla_\theta J$$
+
+Where:
+
+$$F(\theta) = \mathbb{E}_{s,a} \left[
+\nabla_\theta \log \pi_\theta(a|s)
+\nabla_\theta \log \pi_\theta(a|s)^T
+\right]$$
+
+This ensures updates correspond to small changes in **policy behavior**, not just raw parameters.
+
+---
+
+## 🎯 Update Rule
+$$\theta_{k+1} = \theta_k + \alpha F^{-1}(\theta_k) \nabla_\theta J$$
+
+- Moves in the direction of steepest ascent in **policy space**
+- More stable and **invariant to reparameterization**
+
+---
+
+## 🔗 Connection to KL Regularization and TRPO
+
+- **TRPO (Trust Region Policy Optimization)** enforces:
+  $$D_{KL}(\pi_{\theta_{old}} || \pi_\theta) \le \delta$$
+- Natural gradients implicitly respect this constraint.
+- **ACTOR** approximates the FIM efficiently for large neural networks.
+
+---
+
+## ✅ Summary
+
+| Concept | Description |
+|----------|--------------|
+| **Policy Gradient Theorem** | Core formula linking policy improvement to expected returns |
+| **Advantage Function** | Variance reduction baseline |
+| **Actor–Critic** | Learns both policy and value |
+| **Boltzmann Policy Example** | Demonstrates gradient-driven improvement |
+| **Highly Correlated Features** | Cause instability in vanilla PG |
+| **Natural Policy Gradient** | Uses Fisher metric to scale updates |
+| **TRPO / ACKTR** | Approximate natural gradient in deep RL |
+
+---
+
+> 🧠 **Final Insight:**  
+> Policy gradient methods **directly optimize behavior**, not just values.  
+> From simple Boltzmann updates to curvature-aware NPG, they form the mathematical backbone of **modern deep reinforcement learning** methods such as PPO, TRPO, and SAC.
+
 
 ## 🧩 Step 9: Connection to Modern Deep RL
 
@@ -371,6 +601,17 @@ This ensures updates correspond to small **changes in policy**, not parameters.
 | **PPO (Proximal Policy Optimization)** | Uses clipped surrogate loss for stable updates |
 | **TRPO (Trust Region Policy Optimization)** | Constrains step size using KL divergence (approx. NPG) |
 | **DDPG / SAC** | Deterministic or entropy-regularized variants for continuous control |
+
+##  Modern Deep RL
+
+- **A2C / A3C (Asynchronous Advantage Actor–Critic)**
+- **PPO (Proximal Policy Optimization)** – stable, first-order approximation of TRPO
+- **TRPO (Trust Region Policy Optimization)** – constrained optimization using KL-divergence
+- **SAC (Soft Actor–Critic)** – entropy-regularized policy gradients for exploration
+- **DDPG (Deep Deterministic Policy Gradient)** – deterministic continuous variant of PG
+- **TD3** – addresses function approximation instability in DDPG
+
+---
 
 ---
 
@@ -411,16 +652,5 @@ $$ \Delta \theta = \eta G^{-1}(\theta) \nabla_\theta J$$
 
 > Policy Gradient methods directly optimize **expected reward** by following the gradient in **policy space**, not value space.  
 > They serve as the foundation for **nearly all modern deep reinforcement learning algorithms** that rely on differentiable policies.
-
----
-
-## 📚 Related Algorithms in Modern Deep RL
-
-- **A2C / A3C (Asynchronous Advantage Actor–Critic)**
-- **PPO (Proximal Policy Optimization)** – stable, first-order approximation of TRPO
-- **TRPO (Trust Region Policy Optimization)** – constrained optimization using KL-divergence
-- **SAC (Soft Actor–Critic)** – entropy-regularized policy gradients for exploration
-- **DDPG (Deep Deterministic Policy Gradient)** – deterministic continuous variant of PG
-- **TD3** – addresses function approximation instability in DDPG
 
 ---
